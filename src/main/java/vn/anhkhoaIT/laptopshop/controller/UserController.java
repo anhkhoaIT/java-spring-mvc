@@ -2,10 +2,14 @@ package vn.anhkhoaIT.laptopshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.anhkhoaIT.laptopshop.domain.User;
 import vn.anhkhoaIT.laptopshop.service.UserService;
 
 @Controller
@@ -15,20 +19,25 @@ public class UserController {
         this.userService = userService;
     }
     @RequestMapping("/")
-    public String getHomePage() {
+    public String getHomePage(Model model) {
+        String hello = this.userService.handleHello();
+        model.addAttribute("khoa", hello);
+        model.addAttribute("hihi", "chan qua");
         return "hello";
     }
+
+    //Create a new user from admin page
+    @RequestMapping("/admin/user")
+    public String getCreateUser(Model model) {
+        model.addAttribute("newUser", new User());
+        return "admin/user/create";
+    }
+
+    @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
+    public String getUser(Model model, @ModelAttribute("newUser") User khoaIT) {
+        System.out.println(khoaIT);
+        return "hello";
+    }
+
 }
 
-// @RestController
-// public class UserController {
-//     //Dependency Injection
-//     private UserService userService;
-//     public UserController(UserService userService) {
-//         this.userService = userService;
-//     }
-//     @GetMapping("/")
-//     public String getHomePage() {
-//         return this.userService.handleHello();
-//     }
-// }
