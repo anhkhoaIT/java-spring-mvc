@@ -5,7 +5,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Table User</title>
     <!-- Latest compiled and minified CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -59,9 +59,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                   <td>${user.getEmail()}</td>
                   <td>${user.getFullName()}</td>
                   <td>
-                    <button class="btn btn-success btn-sm">View</button>
-                    <button class="btn btn-warning btn-sm mx-2">Update</button>
-                    <button class="btn btn-danger btn-sm">Delete</button>
+                    <a href="/admin/user/${user.getId()}" class="btn btn-success btn-sm">View</a>
+                    <a href="/admin/user/update/${user.getId()}" class="btn btn-warning btn-sm mx-2">Update</a>
+                    <a href="/admin/user/delete/${user.getId()}" class="btn btn-danger btn-sm">Delete</button>
                   </td>
                 </tr>
               </c:forEach>
@@ -70,6 +70,5 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         </div>
       </div>
     </div>
-    <button class="btn btn-warning">Click me</button>
   </body>
 </html>

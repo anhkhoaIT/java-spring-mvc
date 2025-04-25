@@ -29,4 +29,14 @@ public class UserService {
     public User saveUser(User user) {
         return this.userRepository.save(user);
     }
+
+    //Find a user by ID
+    public User getUserById(Long id) {
+        return this.userRepository.findById(id).orElse(null);
+    }
+
+    //Delete a user by ID
+    public void deleteUserById(Long id) {
+        this.userRepository.deleteById(id);
+    }
 }
