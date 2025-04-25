@@ -1,5 +1,7 @@
 package vn.anhkhoaIT.laptopshop.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,18 +12,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.anhkhoaIT.laptopshop.domain.User;
+import vn.anhkhoaIT.laptopshop.repository.UserRepository;
 import vn.anhkhoaIT.laptopshop.service.UserService;
 
 @Controller
 public class UserController {
-    private UserService userService;
+    private final UserService userService;
     public UserController(UserService userService) {
         this.userService = userService;
     }
     @RequestMapping("/")
     public String getHomePage(Model model) {
-        String hello = this.userService.handleHello();
-        model.addAttribute("khoa", hello);
+        List<User> users = this.userService.getUserByEmail("khoa1@gmail.com");
+        System.out.println(users);
+        model.addAttribute("khoa", "anh khoa IT");
         model.addAttribute("hihi", "chan qua");
         return "hello";
     }
@@ -35,6 +39,8 @@ public class UserController {
 
     @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
     public String getUser(Model model, @ModelAttribute("newUser") User khoaIT) {
+        // Save the user to the database
+        this.userService.saveUser(khoaIT);
         System.out.println(khoaIT);
         return "hello";
     }
