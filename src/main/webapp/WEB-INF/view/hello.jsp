@@ -11,17 +11,28 @@ uri="http://java.sun.com/jsp/jstl/core"%>
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- <link rel="stylesheet" href="/css/demo.css" /> -->
-
-    <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+      /* Điều chỉnh chiều rộng cột */
+      table {
+        table-layout: fixed;
+        width: 100%;
+      }
+      th,
+      td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .action-column {
+        width: 75%; /* Cột Action dài hơn */
+      }
+      .other-column {
+        width: 25%; /* Các cột còn lại nhỏ lại */
+      }
+    </style>
   </head>
   <body>
-    Hello from JSP
-    <h1>${khoa}</h1>
-    <h2>${hihi}</h2>
-    <button class="btn btn-warning">Click me</button>
+    <h1>Hello, World!</h1>
   </body>
 </html>

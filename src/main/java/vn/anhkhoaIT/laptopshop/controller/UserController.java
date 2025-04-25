@@ -23,26 +23,33 @@ public class UserController {
     }
     @RequestMapping("/")
     public String getHomePage(Model model) {
-        List<User> users = this.userService.getUserByEmail("khoa1@gmail.com");
-        System.out.println(users);
-        model.addAttribute("khoa", "anh khoa IT");
-        model.addAttribute("hihi", "chan qua");
+        // List<User> users = this.userService.getUserByEmail("khoa1@gmail.com");
+        // System.out.println(users);
         return "hello";
     }
 
-    //Create a new user from admin page
     @RequestMapping("/admin/user")
-    public String getCreateUser(Model model) {
+    public String getUserPage(Model model) {
+        List<User> users = this.userService.getAllUsers();
+        System.out.println(">>>>>>>>>> Checking user list: " + users);
+        model.addAttribute("users", users);
+        return "admin/user/table-user";
+    }
+
+    //Create a new user from admin page
+    @RequestMapping("/admin/user/create")
+    public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
     }
 
-    @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
+    
+    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
     public String getUser(Model model, @ModelAttribute("newUser") User khoaIT) {
         // Save the user to the database
         this.userService.saveUser(khoaIT);
         System.out.println(khoaIT);
-        return "hello";
+        return "redirect:/admin/user";
     }
 
 }

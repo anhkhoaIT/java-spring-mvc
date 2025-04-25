@@ -22,7 +22,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         <div class="col-md-6 col-12 mx-auto">
           <h3>Create a user</h3>
           <hr />
-          <form:form method="post" action="/admin/user/create1" modelAttribute="newUser" >
+          <form:form method="post" action="/admin/user/create" modelAttribute="newUser" >
             <div class="mb-3">
               <label class="form-label">Email:</label>
               <form:input type="email" class="form-control" path="email"/>
