@@ -1,5 +1,7 @@
 package vn.anhkhoaIT.laptopshop.domain;
 
+import java.util.List;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
