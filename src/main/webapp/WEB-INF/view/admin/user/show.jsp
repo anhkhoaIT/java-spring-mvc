@@ -53,6 +53,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 <th class="other-column" scope="col">ID</th>
                 <th class="other-column" scope="col">Email</th>
                 <th class="other-column" scope="col">Full Name</th>
+                <th class="other-column" scope="col">Role</th>
                 <th class="action-column" scope="col">Action</th>
               </tr>
             </thead>
@@ -62,6 +63,8 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                   <td scope="row">${user.getId()}</td>
                   <td>${user.getEmail()}</td>
                   <td>${user.getFullName()}</td>
+                  <td>${user.getRole().getName()}</td>
+
                   <td>
                     <a href="/admin/user/${user.getId()}" class="btn btn-success btn-sm">View</a>
                     <a href="/admin/user/update/${user.getId()}" class="btn btn-warning btn-sm mx-2">Update</a>

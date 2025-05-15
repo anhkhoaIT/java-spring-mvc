@@ -14,6 +14,19 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
     <meta name="author" content="Hỏi Dân IT" />
     <title>Dashboard - Khoa IT</title>
     <link href="/css/styles.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(() => {
+        const avatarFile = $("#avatarFile");
+        avatarFile.change(function (e) {
+          const imgURL = URL.createObjectURL(e.target.files[0]);
+          $("#avatarPreview").attr("src", imgURL);
+          $("#avatarPreview").css({ display: "block" });
+        });
+      });
+    </script>
+
     <script
       src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
       crossorigin="anonymous"
@@ -45,6 +58,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                     method="post"
                     action="/admin/user/create"
                     modelAttribute="newUser"
+                    enctype="multipart/form-data"
                   >
                     <div class="row g-3">
                       <div class="mb-3 col">
@@ -94,13 +108,14 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                     <div class="row g-3">
                       <div class="mb-3 col">
                         <label class="form-label">Role:</label>
-                        <select
+                        <form:select
                           class="form-select form-select-sm"
                           aria-label=".form-select-sm example"
+                          path="role.name"
                         >
-                          <option value="ADMIN">ADMIN</option>
-                          <option value="USER">USER</option>
-                        </select>
+                          <form:option value="ADMIN">ADMIN</form:option>
+                          <form:option value="USER">USER</form:option>
+                        </form:select>
                       </div>
 
                       <div class="mb-3 col">
@@ -112,6 +127,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                           type="file"
                           id="avatarFile"
                           accept=".png, .jpg, .jpeg"
+                          name="hoidanitFile"
                         />
                       </div>
                     </div>
