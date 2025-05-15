@@ -1,4 +1,4 @@
-package vn.anhkhoaIT.laptopshop.controller;
+package vn.anhkhoaIT.laptopshop.controller.admin;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class UserController {
         List<User> users = this.userService.getAllUsers();
         // System.out.println(">>>>>>>>>> Checking user list: " + users);
         model.addAttribute("users", users);
-        return "admin/user/table-user";
+        return "admin/user/show";
     }
 
     //Create user page
@@ -55,7 +55,7 @@ public class UserController {
         // System.out.println("Checking user details page with id: " + id);
         User user = this.userService.getUserById(id);
         model.addAttribute("user", user);
-        return "admin/user/detail-user";
+        return "admin/user/detail";
     }
 
     // Update user page
@@ -63,7 +63,7 @@ public class UserController {
     public String getUpdateUserPage(Model model, @PathVariable Long id) {
         User currentUser = this.userService.getUserById(id);
         model.addAttribute("currentUser", currentUser);
-        return "admin/user/update-user";
+        return "admin/user/update";
     }
 
     // Delete user page
@@ -71,7 +71,7 @@ public class UserController {
     public String getDeleteUserPage(Model model, @PathVariable Long id) {
         User user = this.userService.getUserById(id);
         model.addAttribute("user", user);
-        return "admin/user/delete-user";
+        return "admin/user/delete";
     }
 
     
