@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core"%>
+uri="http://java.sun.com/jsp/jstl/core"%> <%@taglib
+uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,50 +30,40 @@ uri="http://java.sun.com/jsp/jstl/core"%>
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Manage Products</h1>
+            <h1 class="mt-4">Manage Users</h1>
             <ol class="breadcrumb mb-4">
               <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Products</li>
+              <li class="breadcrumb-item">
+                <a href="/admin/product">Products</a>
+              </li>
+              <li class="breadcrumb-item active">Detail</li>
             </ol>
-            <!-- <div>Table product</div> -->
-
             <div class="mt-5">
               <div class="row">
                 <div class="table-responsive col-12 mx-auto">
                   <div class="justify-content-between d-flex">
-                    <h3>Table products</h3>
-                    <a href="/admin/product/create" class="btn btn-primary"
-                      >Create a product</a
-                    >
+                    <h3>Product Detail with Id: ${product.getId()}</h3>
                   </div>
                   <hr />
-                  <table class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Factory</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-              <c:forEach var="product" items="${products}">
-                <tr>
-                  <td scope="row">${product.getId()}</td>
-                  <td>${product.getName()}</td>
-                  <td>${product.getPrice()}</td>
-                  <td>${product.getFactory()}</td>
-
-                  <td>
-                    <a href="/admin/product/${product.getId()}" class="btn btn-success btn-sm">View</a>
-                    <a href="/admin/product/update/${product.getId()}" class="btn btn-warning btn-sm mx-2">Update</a>
-                    <a href="/admin/product/delete/${product.getId()}" class="btn btn-danger btn-sm">Delete</button>
-                  </td>
-                </tr>
-              </c:forEach>
-            </tbody>
-                  </table>
+                  <img
+                    src="/images/product/${product.getImage()}"
+                    alt="Product Image"
+                    class="img-fluid"
+                    style="width: 300px; height: 300px"
+                  />
+                  <div class="card" style="width: 60%">
+                    <div class="card-header">User information</div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">ID: ${product.getId()}</li>
+                      <li class="list-group-item">
+                        Name: ${product.getName()}
+                      </li>
+                      <li class="list-group-item">
+                        Price: ${product.getPrice()}
+                      </li>
+                    </ul>
+                  </div>
+                  <a class="btn btn-success" href="/admin/product">Back</a>
                 </div>
               </div>
             </div>

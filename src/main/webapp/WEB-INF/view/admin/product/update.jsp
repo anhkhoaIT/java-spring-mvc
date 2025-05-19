@@ -21,6 +21,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
         const avatarFile = $("#productFile");
         avatarFile.change(function (e) {
           const imgURL = URL.createObjectURL(e.target.files[0]);
+          $("#oldProductPreview").css({ display: "none" });
           $("#productPreview").attr("src", imgURL);
           $("#productPreview").css({ display: "block" });
         });
@@ -46,7 +47,8 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
             <h1 class="mt-4">Manage Products</h1>
             <ol class="breadcrumb mb-4">
               <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Products</li>
+              <li class="breadcrumb-item"><a href="/admin/product">Products</a></li>
+              <li class="breadcrumb-item active">Update</li>
             </ol>
 
             <div class="mt-5">
@@ -56,10 +58,14 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                   <hr />
                   <form:form
                     method="post"
-                    action="/admin/product/create"
-                    modelAttribute="newProduct"
+                    action="/admin/product/update"
+                    modelAttribute="currentProduct"
                     enctype="multipart/form-data"
                   >
+                    <div class="mb-3" style="display: none">
+                      <label class="form-label">ID:</label>
+                      <form:input type="text" class="form-control" path="id" />
+                    </div>
                     <div class="row g-3">
                       <div class="mb-3 col">
                         <label class="form-label">Name:</label>
@@ -187,6 +193,11 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
 
                     <div class="col-12 mb-3">
                       <img
+                        src="/images/product/${currentProduct.getImage()}"
+                        style="max-height: 250px; display: block"
+                        id="oldProductPreview"
+                      />
+                      <img
                         style="max-height: 250px; display: none"
                         alt="product preview"
                         id="productPreview"
@@ -194,7 +205,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                     </div>
                     <div class="col-12 mb-5">
                       <button type="submit" class="btn btn-primary">
-                        Create
+                        Update
                       </button>
                     </div>
                   </form:form>

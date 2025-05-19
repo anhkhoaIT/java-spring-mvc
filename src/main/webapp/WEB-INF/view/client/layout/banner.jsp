@@ -20,7 +20,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active rounded">
               <img
-                src="/client/img/hero-img-1.png"
+                src="/images/product/1711079073759-lenovo-01.png"
                 class="img-fluid w-100 h-100 bg-secondary rounded"
                 alt="First slide"
               />
@@ -28,7 +28,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             </div>
             <div class="carousel-item rounded">
               <img
-                src="/client/img/hero-img-2.jpg"
+                src="/images/product/1711078092373-asus-01.png"
                 class="img-fluid w-100 h-100 rounded"
                 alt="Second slide"
               />
