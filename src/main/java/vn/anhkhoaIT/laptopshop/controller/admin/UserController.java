@@ -44,13 +44,7 @@ public class UserController {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
-    @GetMapping("/")
-    public String getHomePage(Model model) {
-        // List<User> users = this.userService.getUserByEmail("khoa1@gmail.com");
-        // System.out.println(users);
-        return "hello";
-    }
-
+    
     @GetMapping("/admin/user")
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
@@ -95,7 +89,7 @@ public class UserController {
     @PostMapping(value = "/admin/user/create")
     public String getUser(Model model, @ModelAttribute("newUser") User khoaIT,  
     @RequestParam("hoidanitFile") MultipartFile file) {
-        // Save the user to the database
+        // Upload file
          try{
             byte[] bytes = file.getBytes();
             String rootPath = this.servletContext.getRealPath("/resources/images");
