@@ -1,4 +1,3 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -35,7 +34,48 @@ uri="http://java.sun.com/jsp/jstl/core"%>
               <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
               <li class="breadcrumb-item active">Products</li>
             </ol>
-            <div>Table product</div>
+            <!-- <div>Table product</div> -->
+
+            <div class="mt-5">
+              <div class="row">
+                <div class="table-responsive col-12 mx-auto">
+                  <div class="justify-content-between d-flex">
+                    <h3>Table products</h3>
+                    <a href="/admin/product/create" class="btn btn-primary"
+                      >Create a product</a
+                    >
+                  </div>
+                  <hr />
+                  <table class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Factory</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <!-- <tbody>
+              <c:forEach var="user" items="${users}">
+                <tr>
+                  <td scope="row">${user.getId()}</td>
+                  <td>${user.getEmail()}</td>
+                  <td>${user.getFullName()}</td>
+                  <td>${user.getRole().getName()}</td>
+
+                  <td>
+                    <a href="/admin/user/${user.getId()}" class="btn btn-success btn-sm">View</a>
+                    <a href="/admin/user/update/${user.getId()}" class="btn btn-warning btn-sm mx-2">Update</a>
+                    <a href="/admin/user/delete/${user.getId()}" class="btn btn-danger btn-sm">Delete</button>
+                  </td>
+                </tr>
+              </c:forEach>
+            </tbody> -->
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </main>
         <!-- footer -->
@@ -52,4 +92,3 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <script src="/js/datatables-simple-demo.js"></script>
   </body>
 </html>
-

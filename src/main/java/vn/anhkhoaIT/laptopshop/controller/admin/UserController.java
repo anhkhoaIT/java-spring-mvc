@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import jakarta.servlet.ServletContext;
+import jakarta.validation.Valid;
 import vn.anhkhoaIT.laptopshop.domain.Role;
 import vn.anhkhoaIT.laptopshop.domain.User;
 
@@ -87,10 +90,24 @@ public class UserController {
 
     
     @PostMapping(value = "/admin/user/create")
-    public String getUser(Model model, @ModelAttribute("newUser") User khoaIT,  
+    public String getUser(Model model, @Valid @ModelAttribute("newUser") User khoaIT,  BindingResult newUserBindingResult,
     @RequestParam("hoidanitFile") MultipartFile file) {
+        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        for (FieldError error : errors ) {
+            System.out.println (">>>>>>>>" + error.getField() + " - " + error.getDefaultMessage());
+        }
+
+        if(newUserBindingResult.hasErrors()) {
+            return "admin/user/create";
+        }
+        String avatar = "";
+        
         // Upload file
-         try{
+        
+        if (!file.isEmpty()) {
+            String filename = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+            avatar = filename;
+            try{
             byte[] bytes = file.getBytes();
             String rootPath = this.servletContext.getRealPath("/resources/images");
 
@@ -99,8 +116,8 @@ public class UserController {
                 dir.mkdirs();
 
             // Create the file on server
-            File serverFile = new File(dir.getAbsolutePath() + File.separator +
-                    +System.currentTimeMillis() + "-" + file.getOriginalFilename());
+            
+            File serverFile = new File(dir.getAbsolutePath() + File.separator + filename);
 
             BufferedOutputStream stream = new BufferedOutputStream(
                     new FileOutputStream(serverFile));
@@ -109,13 +126,17 @@ public class UserController {
          } catch (Exception e) {
             e.printStackTrace();
          }
+        }
+        
+         
         //set password
         String hashPassword = this.passwordEncoder.encode(khoaIT.getPassword());
         khoaIT.setPassword(hashPassword);
         //get role from database
         Role role = this.userService.getRoleByName(khoaIT.getRole().getName());
-        System.out.println("Checking role: " + role);
         khoaIT.setRole(role);
+        
+        khoaIT.setAvatar(avatar);
 
         this.userService.saveUser(khoaIT);
         return "redirect:/admin/user";
@@ -137,6 +158,14 @@ public class UserController {
 
     @PostMapping("/admin/user/delete/{id}")
     public String postDeleteUser(Model model, @PathVariable Long id) {
+        User user = this.userService.getUserById(id);
+        //xóa ảnh trong file dựa trên tên ảnh có trong user.getAvatar()
+        String rootPath = this.servletContext.getRealPath("/resources/images");
+        File dir = new File(rootPath + File.separator + "avatar");
+        File file = new File(dir.getAbsolutePath() + File.separator + user.getAvatar());
+        if (file.exists()) {
+            file.delete();
+        }
         this.userService.deleteUserById(id);
         // Delete the user from the database
         return "redirect:/admin/user";

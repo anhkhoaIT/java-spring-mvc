@@ -18,11 +18,11 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
 
     <script>
       $(document).ready(() => {
-        const avatarFile = $("#avatarFile");
+        const avatarFile = $("#productFile");
         avatarFile.change(function (e) {
           const imgURL = URL.createObjectURL(e.target.files[0]);
-          $("#avatarPreview").attr("src", imgURL);
-          $("#avatarPreview").css({ display: "block" });
+          $("#productPreview").attr("src", imgURL);
+          $("#productPreview").css({ display: "block" });
         });
       });
     </script>
@@ -43,123 +43,121 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Manage Users</h1>
+            <h1 class="mt-4">Manage Products</h1>
             <ol class="breadcrumb mb-4">
               <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Users</li>
+              <li class="breadcrumb-item active">Products</li>
             </ol>
 
             <div class="mt-5">
               <div class="row">
                 <div class="col-md-6 col-12 mx-auto">
-                  <h3>Create a user</h3>
+                  <h3>Create a product</h3>
                   <hr />
                   <form:form
                     method="post"
                     action="/admin/user/create"
-                    modelAttribute="newUser"
+                    modelAttribute="newProduct"
                     enctype="multipart/form-data"
                   >
                     <div class="row g-3">
                       <div class="mb-3 col">
-                        <label class="form-label">Email:</label>
-                        <c:set var="emailError">
-                          <form:errors path="email" />
-                        </c:set>
+                        <label class="form-label">Name:</label>
                         <form:input
-                          type="email"
-                          class="form-control ${not empty emailError? 'is-invalid':''}"
-                          path="email"
-                        />
-                        <form:errors
-                          path="email"
-                          cssClass="invalid-feedback"
+                          type="name"
+                          class="form-control"
+                          path="name"
                         />
                       </div>
                       <div class="mb-3 col">
-                        <label class="form-label">Password:</label>
-                        <c:set var="passwordError">
-                          <form:errors path="password" />
-                        </c:set>
-
+                        <label class="form-label">Price:</label>
                         <form:input
-                          type="password"
-                          class="form-control ${not empty passwordError? 'is-invalid':''}"
-                          path="password"
-                        />
-
-                        <form:errors
-                          path="password"
-                          cssClass="invalid-feedback"
+                          type="number"
+                          class="form-control"
+                          path="price"
                         />
                       </div>
                     </div>
+                    <div class="mb-3">
+                      <label class="form-label">Detail description:</label>
+                      <form:textarea class="form-control" path="detailDesc" />
+                    </div>
+
                     <div class="row g-3">
                       <div class="mb-3 col">
-                        <label class="form-label">Phone number:</label>
+                        <label class="form-label">Short description:</label>
                         <form:input
                           type="Text"
                           class="form-control"
-                          path="phone"
+                          path="shortDesc"
                         />
                       </div>
                       <div class="mb-3 col">
-                        <label class="form-label">Full Name:</label>
-                        <c:set var="fullNameError">
-                          <form:errors path="password" />
-                        </c:set>
+                        <label class="form-label">Quantity:</label>
                         <form:input
-                          type="Text"
-                          class="form-control ${not empty fullNameError? 'is-invalid':''}"
-                          path="fullName"
-                        />
-
-                        <form:errors
-                          path="fullName"
-                          cssClass="invalid-feedback"
+                          type="number"
+                          class="form-control"
+                          path="quantity"
                         />
                       </div>
                     </div>
 
-                    <div class="mb-3">
-                      <label class="form-label">Address:</label>
-                      <form:input
-                        type="Text"
-                        class="form-control"
-                        path="address"
-                      />
-                    </div>
                     <div class="row g-3">
                       <div class="mb-3 col">
-                        <label class="form-label">Role:</label>
+                        <label class="form-label">Factory:</label>
                         <form:select
                           class="form-select form-select-sm"
                           aria-label=".form-select-sm example"
-                          path="role.name"
+                          path="factory"
                         >
-                          <form:option value="ADMIN">ADMIN</form:option>
-                          <form:option value="USER">USER</form:option>
+                          <form:option value="APPLE"
+                            >Apple (Macbook)</form:option
+                          >
+                          <form:option value="ASUS">Asus</form:option>
+                          <form:option value="LENOVO">Lenovo</form:option>
+                          <form:option value="DELL">Dell</form:option>
+                          <form:option value="LG">LG</form:option>
+                          <form:option value="ACER">Acer</form:option>
                         </form:select>
                       </div>
 
                       <div class="mb-3 col">
-                        <label for="avatarFile" class="form-label"
-                          >Avatar:</label
+                        <label class="form-label">Target:</label>
+                        <form:select
+                          class="form-select form-select-sm"
+                          aria-label=".form-select-sm example"
+                          path="target"
                         >
-                        <input
-                          class="form-control"
-                          type="file"
-                          id="avatarFile"
-                          accept=".png, .jpg, .jpeg"
-                          name="hoidanitFile"
-                        />
+                          <form:option value="SINHVIEN-VANPHONG"
+                            >Sinh viên - Văn phòng</form:option
+                          >
+                          <form:option value="THIET-KE-DO-HOA"
+                            >Thiết kế đồ họa</form:option
+                          >
+                          <form:option value="MONG-NHE">Mỏng nhẹ</form:option>
+                          <form:option value="DOANH-NHAN"
+                            >Doanh nhân</form:option
+                          >
+                        </form:select>
                       </div>
                     </div>
+
+                    <div class="mb-3">
+                      <label for="avatarFile" class="form-label">Image:</label>
+                      <input
+                        class="form-control"
+                        type="file"
+                        id="productFile"
+                        accept=".png, .jpg, .jpeg"
+                        name="khoaFile"
+                      />
+                    </div>
+
                     <div class="col-12 mb-3">
                       <img
                         style="max-height: 250px; display: none"
-                        alt="avatar preview"
-                        id="avatarPreview"
+                        alt="product preview"
+                        id="productPreview"
                       />
                     </div>
                     <div class="col-12 mb-5">
