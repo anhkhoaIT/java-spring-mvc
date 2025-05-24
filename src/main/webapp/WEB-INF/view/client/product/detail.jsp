@@ -91,12 +91,20 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         </div>
       </div>
     </div>
+
     <!-- Modal Search End -->
 
     <!-- Single Product Start -->
     <div class="container-fluid py-5 mt-5">
       <div class="container py-5">
         <div class="row g-4 mb-5">
+          <div>
+            <ol class="breadcrumb mb-4">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+
+              <li class="breadcrumb-item active">Chi tiết sản phẩm</li>
+            </ol>
+          </div>
           <div class="col-lg-8 col-xl-9">
             <div class="row g-4">
               <div class="col-lg-6">
@@ -201,7 +209,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <li>
                       <div class="d-flex justify-content-between fruite-name">
                         <a href="#"
-                          ><i class="fas fa-apple-alt me-2"></i>Oranges</a
+                          ><i class="fas fa-apple-alt me-2"></i>Dell</a
                         >
                         <span>(5)</span>
                       </div>
@@ -209,7 +217,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <li>
                       <div class="d-flex justify-content-between fruite-name">
                         <a href="#"
-                          ><i class="fas fa-apple-alt me-2"></i>Strawbery</a
+                          ><i class="fas fa-apple-alt me-2"></i>Asus</a
                         >
                         <span>(2)</span>
                       </div>
@@ -217,7 +225,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <li>
                       <div class="d-flex justify-content-between fruite-name">
                         <a href="#"
-                          ><i class="fas fa-apple-alt me-2"></i>Banana</a
+                          ><i class="fas fa-apple-alt me-2"></i>Acer</a
                         >
                         <span>(8)</span>
                       </div>
@@ -225,7 +233,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <li>
                       <div class="d-flex justify-content-between fruite-name">
                         <a href="#"
-                          ><i class="fas fa-apple-alt me-2"></i>Pumpkin</a
+                          ><i class="fas fa-apple-alt me-2"></i>Lenovo</a
                         >
                         <span>(5)</span>
                       </div>
