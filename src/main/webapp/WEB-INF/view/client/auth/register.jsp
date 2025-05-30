@@ -65,23 +65,38 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       </div>
 
                       <div class="form-floating mb-3">
+                        <c:set var="emailError">
+                          <form:errors
+                            path="email"
+                            cssClass="invalid-feedback"
+                          />
+                        </c:set>
                         <form:input
-                          class="form-control"
+                          class="form-control ${not empty emailError? 'is-invalid':''}"
                           path="email"
                           type="email"
                           placeholder="name@example.com"
                         />
+                        ${emailError}
                         <label for="inputEmail">Email address</label>
                       </div>
                       <div class="row mb-3">
                         <div class="col-md-6">
                           <div class="form-floating mb-3 mb-md-0">
+                            <c:set var="confirmPasswordError">
+                              <form:errors
+                                path="confirmPassword"
+                                cssClass="invalid-feedback"
+                              />
+                            </c:set>
                             <form:input
-                              class="form-control"
+                              class="form-control ${not empty confirmPasswordError? 'is-invalid':''}"
                               path="password"
                               type="password"
                               placeholder="Create a password"
                             />
+
+                            ${confirmPasswordError}
                             <label for="inputPassword">Password</label>
                           </div>
                         </div>
@@ -93,6 +108,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                               type="password"
                               placeholder="Confirm password"
                             />
+
                             <label for="inputPasswordConfirm"
                               >Confirm Password</label
                             >
