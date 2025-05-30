@@ -13,7 +13,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Register - SB Admin</title>
+    <title>Register</title>
     <link href="css/styles.css" rel="stylesheet" />
     <script
       src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
@@ -129,7 +129,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   </div>
                   <div class="card-footer text-center py-3">
                     <div class="small">
-                      <a href="#">Have an account? Go to login</a>
+                      <a href="/login">Have an account? Go to login</a>
                     </div>
                   </div>
                 </div>
@@ -144,6 +144,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"
     ></script>
-    <script src="js/scripts.js"></script>
+    <script src="/js/scripts.js"></script>
   </body>
 </html>

@@ -11,8 +11,9 @@ import vn.anhkhoaIT.laptopshop.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User save(User user); // Save a user to the database
-    List<User> findByEmail(String email); // Find a user by email
+    // List<User> findByEmail(String email); // Find a user by email
     Optional<User> findById(Long id); // Find a user by ID
     void deleteById(Long id); // Delete a user by ID
     boolean existsByEmail(String email); // Check if a user exists by email
+    User findByEmail(String email);
 }
