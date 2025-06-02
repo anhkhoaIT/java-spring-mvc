@@ -38,7 +38,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           Invalid email or password.
                         </div>
                       </c:if>
-
+                      <c:if test="${param.logout != null}">
+                        <div class="my-2" style="color: green">
+                          Logout successful
+                        </div>
+                      </c:if>
                       <div class="form-floating mb-3">
                         <input
                           class="form-control"
