@@ -60,4 +60,20 @@ public class ItemController {
         this.productService.handleDeleteCartProduct(cartDetailId, session);
         return "redirect:/cart";
     }
+
+    @PostMapping("/checkout")
+    public String checkout(Model model, HttpSession session) {
+        String email = (String) session.getAttribute("email");
+        Cart cart = this.productService.getCartByUserEmail(email);
+        List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>() : cart.getCartDetails();
+        model.addAttribute("cartDetails", cartDetails);
+        model.addAttribute("cart", cart);
+        return "client/cart/checkout";
+    }
+
+    @PostMapping("/place-order")
+    public String placeOrder(Model model, @RequestParam("receiverName") String name, @RequestParam("receiverAddress") String address, @RequestParam("receiverPhone") String phone) {
+        
+        return "redirect:/";
+    }
 }
