@@ -32,7 +32,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
               <span
                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                 style="top: -5px; left: 15px; height: 20px; min-width: 20px"
-                >3</span
+                >${sessionScope.sum}</span
               >
             </a>
             <div class="dropdown my-auto">
@@ -67,7 +67,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     src="/images/avatar/${sessionScope.avatar}"
                   />
                   <div class="text-center my-3">
-                    <c:out value="${sessionScope.fullName}"/>
+                    <c:out value="${sessionScope.fullName}" />
                   </div>
                 </li>
 

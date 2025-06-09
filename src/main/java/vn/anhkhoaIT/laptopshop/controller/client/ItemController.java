@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import jakarta.servlet.http.HttpSession;
 import vn.anhkhoaIT.laptopshop.domain.Product;
 import vn.anhkhoaIT.laptopshop.service.ProductService;
 
@@ -27,11 +28,16 @@ public class ItemController {
     }
 
     @PostMapping("/add-product-to-cart/{id}")
-    public String addProductToCart(@PathVariable("id") Long productId, @SessionAttribute("email") String email) {
+    public String addProductToCart(@PathVariable("id") Long productId, @SessionAttribute("email") String email, HttpSession session) {
 
         System.out.println("Session Email: " + email);
-        this.productService.handleAddProductToCart(productId, email);
+        this.productService.handleAddProductToCart(productId, email, session);
         return "redirect:/";
     }
+
+    @GetMapping("/cart")
+    public String getCartPage() {
+        return "client/cart/show";
     
+    }
 }

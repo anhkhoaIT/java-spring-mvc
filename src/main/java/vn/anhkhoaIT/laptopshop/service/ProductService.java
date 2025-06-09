@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpSession;
 import vn.anhkhoaIT.laptopshop.domain.Cart;
 import vn.anhkhoaIT.laptopshop.domain.CartDetail;
 import vn.anhkhoaIT.laptopshop.domain.Product;
@@ -48,7 +49,7 @@ public class ProductService {
         this.productRepository.deleteById(id);
     }
 
-    public void handleAddProductToCart(long productId, String email) {
+    public void handleAddProductToCart(long productId, String email, HttpSession session) {
         User user = this.userService.getUserByEmail(email);
         
         
@@ -58,17 +59,29 @@ public class ProductService {
             if (cart == null) {
             Cart otherCart = new Cart();
             otherCart.setUser(user);
-            otherCart.setSum(1);
+            otherCart.setSum(0);
             cart = this.cartRepository.save(otherCart);
-        }
-
+            }
         Product product = this.getProductById(productId);
-        CartDetail cartDetail = new CartDetail();
-        cartDetail.setCart(cart);
-        cartDetail.setProduct(product);
-        cartDetail.setQuantity(1); // Default quantity is 1
-        cartDetail.setPrice(product.getPrice()); // Set the price from the product
-        this.cartDetailRepository.save(cartDetail);
+        // Check if the product is already in the cart
+        CartDetail oldCartDetail = this.cartDetailRepository.findByCartAndProduct(cart, product);
+        if (oldCartDetail == null) {
+            int s = cart.getSum() + 1;
+           CartDetail cartDetail = new CartDetail();
+            cartDetail.setCart(cart);
+            cartDetail.setProduct(product);
+            cartDetail.setQuantity(1); // Default quantity is 1
+            cartDetail.setPrice(product.getPrice()); // Set the price from the product
+            cart.setSum(s); // Increment the cart sum
+            this.cartRepository.save(cart); // Save the updated cart
+            this.cartDetailRepository.save(cartDetail); 
+            session.setAttribute("sum", s);
+        } else {
+            oldCartDetail.setQuantity(oldCartDetail.getQuantity() + 1); // Increment quantity
+            this.cartDetailRepository.save(oldCartDetail); 
+        }
+        
+        
         }
     }
 
