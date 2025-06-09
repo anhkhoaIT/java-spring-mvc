@@ -1,5 +1,6 @@
 package vn.anhkhoaIT.laptopshop.controller.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.tags.shaded.org.apache.xalan.xsltc.compiler.sym;
@@ -48,13 +49,15 @@ public class ItemController {
     public String getCartPage(Model model, HttpSession session) {
         String email = (String) session.getAttribute("email");
         Cart cart = this.productService.getCartByUserEmail(email);
-        if (cart == null) {
-            return "client/cart/show";
-        }
-        List<CartDetail> cartDetails = cart.getCartDetails();
+        List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>() : cart.getCartDetails();
         model.addAttribute("cartDetails", cartDetails);
         model.addAttribute("cart", cart);
         return "client/cart/show";
-    
+    }
+
+    @PostMapping("/delete-cart-product/{id}")
+    public String deleteCartProduct(@PathVariable("id") Long cartDetailId, HttpSession session) {
+        this.productService.handleDeleteCartProduct(cartDetailId, session);
+        return "redirect:/cart";
     }
 }

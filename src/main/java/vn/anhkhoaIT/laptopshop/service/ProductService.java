@@ -86,11 +86,25 @@ public class ProductService {
     }
 
     public Cart getCartByUserEmail(String email) {
+
         User user = this.userService.getUserByEmail(email);
         if(user != null) {
             Cart cart = this.cartRepository.findByUser(user);
             return cart;
         }
         return null;
+    }
+    public void handleDeleteCartProduct(Long cartDetailId, HttpSession session) {
+        CartDetail cartDetail = this.cartDetailRepository.findById(cartDetailId).get();
+        Cart cart = cartDetail.getCart();
+        this.cartDetailRepository.delete(cartDetail);
+        if (cart.getSum() > 1) {
+            int newSum = cart.getSum() - 1;
+            cart.setSum(newSum);
+            session.setAttribute("sum", newSum);
+        } else {
+            this.cartRepository.delete(cart); // Delete the cart if it is empty
+            session.setAttribute("sum", 0); // Reset the session sum
+        }
     }
 }
