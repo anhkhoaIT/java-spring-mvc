@@ -68,5 +68,9 @@ public class CartDetail {
         this.product = product;
     }
 
+    public double getTotalPrice() {
+        return this.quantity * this.price;
+    }
+
     
 }

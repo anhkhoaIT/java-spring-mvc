@@ -1,5 +1,7 @@
 package vn.anhkhoaIT.laptopshop.controller.client;
 
+import java.util.List;
+
 import org.eclipse.tags.shaded.org.apache.xalan.xsltc.compiler.sym;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,15 +12,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jakarta.servlet.http.HttpSession;
+import vn.anhkhoaIT.laptopshop.domain.Cart;
+import vn.anhkhoaIT.laptopshop.domain.CartDetail;
 import vn.anhkhoaIT.laptopshop.domain.Product;
+import vn.anhkhoaIT.laptopshop.domain.User;
 import vn.anhkhoaIT.laptopshop.service.ProductService;
+import vn.anhkhoaIT.laptopshop.service.UserService;
 
 
 @Controller
 public class ItemController {
     private final ProductService productService;
-    public ItemController(ProductService productService) {
+    private final UserService userService;
+    public ItemController(ProductService productService, 
+                          UserService userService) {
         this.productService = productService;
+        this.userService = userService;
     }
     @GetMapping("/product/{id}")
     public String getProductDetail(Model model,@PathVariable ("id") Long id) { 
@@ -36,7 +45,15 @@ public class ItemController {
     }
 
     @GetMapping("/cart")
-    public String getCartPage() {
+    public String getCartPage(Model model, HttpSession session) {
+        String email = (String) session.getAttribute("email");
+        Cart cart = this.productService.getCartByUserEmail(email);
+        if (cart == null) {
+            return "client/cart/show";
+        }
+        List<CartDetail> cartDetails = cart.getCartDetails();
+        model.addAttribute("cartDetails", cartDetails);
+        model.addAttribute("cart", cart);
         return "client/cart/show";
     
     }
