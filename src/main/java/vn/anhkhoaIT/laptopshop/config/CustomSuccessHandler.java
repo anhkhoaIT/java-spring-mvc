@@ -61,6 +61,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler{
     User user = this.userService.getUserByEmail(email);
     session.setAttribute("fullName", user.getFullName());
     session.setAttribute("avatar", user.getAvatar());
+    session.setAttribute("id", user.getId());
+    session.setAttribute("email", user.getEmail());
 }
 
     @Override

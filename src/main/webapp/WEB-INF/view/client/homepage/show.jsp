@@ -109,7 +109,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                             </h4>
                             <p style="font-size: 13px">${product.shortDesc}</p>
                             <div
-                              class="d-flex justify-content-between flex-lg-wrap"
+                              class="d-flex justify-content-center flex-lg-wrap"
                             >
                               <p
                                 class="text-dark fw-bold mb-3"
@@ -125,14 +125,26 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                                 />
                                 đ
                               </p>
-                              <a
-                                href="#"
-                                class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"
-                                ><i
-                                  class="fa fa-shopping-bag me-2 text-primary"
-                                ></i>
-                                Add to cart</a
+                              <form
+                                action="/add-product-to-cart/${product.id}"
+                                method="post"
                               >
+                                <input
+                                  type="hidden"
+                                  name="${_csrf.parameterName}"
+                                  value="${_csrf.token}"
+                                />
+
+                                <button
+                                  type="submit"
+                                  class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"
+                                >
+                                  <i
+                                    class="fa fa-shopping-bag me-2 text-primary"
+                                  ></i>
+                                  Add to cart
+                                </button>
+                              </form>
                             </div>
                           </div>
                         </div>
