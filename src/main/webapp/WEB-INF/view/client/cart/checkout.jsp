@@ -178,7 +178,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <form
           action="/place-order"
           method="post"
-          modelAttribute="newOrder"
+          
         >
           <input
             type="hidden"

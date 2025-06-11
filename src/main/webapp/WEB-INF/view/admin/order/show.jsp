@@ -1,6 +1,6 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,7 +35,40 @@ uri="http://java.sun.com/jsp/jstl/core"%>
               <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
               <li class="breadcrumb-item active">Orders</li>
             </ol>
-            <div>Table order</div>
+            <h3>Table orders</h3>
+            <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th class="other-column" scope="col">ID</th>
+                <th class="other-column" scope="col">Total Price</th>
+                <th class="other-column" scope="col">User</th>
+                <th class="other-column" scope="col">Status</th>
+                <th class="action-column" scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <c:forEach var="order" items="${orders}">
+                <tr>
+                  <td scope="row">${order.getId()}</td>
+                  <td>
+                    <fmt:formatNumber
+                      type="number"
+                      value="${order.totalPrice}"
+                    />
+                    đ
+                    </td>
+                  <td>${order.getUser().getFullName()}</td>
+                  <td>${order.getStatus()}</td>
+
+                  <td>
+                    <a href="/admin/order/${order.getId()}" class="btn btn-success btn-sm">View</a>
+                    <a href="/admin/order/update/${order.getId()}" class="btn btn-warning btn-sm mx-2">Update</a>
+                    <a href="/admin/order/delete/${order.getId()}" class="btn btn-danger btn-sm">Delete</button>
+                  </td>
+                </tr>
+              </c:forEach>
+            </tbody>
+          </table>
           </div>
         </main>
         <!-- footer -->
@@ -52,4 +85,3 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <script src="/js/datatables-simple-demo.js"></script>
   </body>
 </html>
-

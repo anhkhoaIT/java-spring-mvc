@@ -72,8 +72,20 @@ public class ItemController {
     }
 
     @PostMapping("/place-order")
-    public String placeOrder(Model model, @RequestParam("receiverName") String name, @RequestParam("receiverAddress") String address, @RequestParam("receiverPhone") String phone) {
-        
-        return "redirect:/";
+    public String placeOrder(Model model, @RequestParam("receiverName") String name, @RequestParam("receiverAddress") String address, @RequestParam("receiverPhone") String phone, HttpSession session) {
+        Long userId = (Long) session.getAttribute("id");
+        User user = new User();
+        user.setId(userId);
+        //in ra 3 trường thông tin name, address, phone
+        System.out.println("Receiver Name: " + name);
+        System.out.println("Receiver Address: " + address);
+        System.out.println("Receiver Phone: " + phone);
+        this.productService.handlePlaceOrder(user, name, address, phone, session);
+        return "redirect:/thanks";
+    }
+
+    @GetMapping("/thanks")
+    public String thanksPage(Model model, HttpSession session) {
+        return "client/cart/thanks";
     }
 }
