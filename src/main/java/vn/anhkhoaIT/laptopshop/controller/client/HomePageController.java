@@ -1,7 +1,10 @@
 package vn.anhkhoaIT.laptopshop.controller.client;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +13,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.Page;
 import jakarta.validation.Valid;
 import vn.anhkhoaIT.laptopshop.domain.Product;
 import vn.anhkhoaIT.laptopshop.domain.Role;
@@ -33,8 +37,11 @@ public class HomePageController {
     }
     @GetMapping("/")
     public String home(Model model) {
-        List<Product> products = this.productService.getAllProducts();
-        model.addAttribute("products", products);
+        // List<Product> products = this.productService.getAllProducts();
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Product> products = this.productService.getAllProducts(pageable);
+        List<Product> productList = products.getContent();
+        model.addAttribute("products", productList);
         return "client/homepage/show";
     }
 
@@ -71,7 +78,26 @@ public class HomePageController {
         return "client/auth/deny";
     }
 
-   
+   @GetMapping("/products")
+    public String getProductsPage(Model model, @RequestParam("page") Optional<String> pageOptional) {
+        int page = 1;
+        if (pageOptional.isPresent()) {
+            try {
+                page = Integer.parseInt(pageOptional.get());
+            } catch (NumberFormatException e) {
+                page = 1; // Default to page 1 if parsing fails
+            }
+        }
+        Pageable pageable = PageRequest.of(page - 1, 5);
+
+        Page<Product> products = this.productService.getAllProducts(pageable);
+        List<Product> productList = products.getContent();
+        model.addAttribute("products", productList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", products.getTotalPages());
+        return "client/product/show";
+    }
+
 
 
 }

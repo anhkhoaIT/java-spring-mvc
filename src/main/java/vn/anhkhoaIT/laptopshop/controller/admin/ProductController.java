@@ -4,7 +4,11 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,9 +42,22 @@ public class ProductController {
         this.servletContext = servletContext;
     }
     @GetMapping("/admin/product")
-    public String getAdminProduct(Model model) {
-        List<Product> products = this.productService.getAllProducts();
-        model.addAttribute("products", products);
+    public String getAdminProduct(Model model, @RequestParam("page") Optional<String> pageOptional) {
+        int page = 1;
+        if (pageOptional.isPresent()) {
+            try {
+                page = Integer.parseInt(pageOptional.get());
+            } catch (NumberFormatException e) {
+                page = 1; // Default to page 1 if parsing fails
+            }
+        }
+        Pageable pageable = PageRequest.of(page - 1, 5);
+
+        Page<Product> products = this.productService.getAllProducts(pageable);
+        List<Product> productList = products.getContent();
+        model.addAttribute("products", productList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", products.getTotalPages());
         return "admin/product/show";
     }
 

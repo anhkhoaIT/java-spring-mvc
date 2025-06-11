@@ -39,8 +39,6 @@ public class ItemController {
 
     @PostMapping("/add-product-to-cart/{id}")
     public String addProductToCart(@PathVariable("id") Long productId, @SessionAttribute("email") String email, HttpSession session) {
-
-        System.out.println("Session Email: " + email);
         this.productService.handleAddProductToCart(productId, email, session);
         return "redirect:/";
     }
